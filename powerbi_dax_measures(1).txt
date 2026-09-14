@@ -1,0 +1,67 @@
+VEDA TECHNOLOGY — TASK 22 COHORT RETENTION
+Power BI DAX measures
+
+Assume the imported transaction table is named Transactions and the customer cohort table is CustomerCohorts.
+
+1. Total Revenue
+Total Revenue = SUM(Transactions[Revenue])
+
+2. Active Customers
+Active Customers = DISTINCTCOUNT(Transactions[CustomerID])
+
+3. Total Orders
+Total Orders = DISTINCTCOUNT(Transactions[InvoiceNo])
+
+4. Cohort Customers
+Cohort Customers = DISTINCTCOUNT(CustomerCohorts[CustomerID])
+
+5. Retention %
+Retention % =
+DIVIDE(
+    [Active Customers],
+    [Cohort Customers],
+    0
+)
+
+6. Average Revenue per Active Customer
+Revenue per Active Customer =
+DIVIDE([Total Revenue], [Active Customers], 0)
+
+7. Repeat Customers
+Repeat Customers =
+COUNTROWS(
+    FILTER(
+        VALUES(CustomerCohorts[CustomerID]),
+        CALCULATE(DISTINCTCOUNT(Transactions[InvoiceNo])) > 1
+    )
+)
+
+8. Repeat Purchase Rate
+Repeat Purchase Rate =
+DIVIDE(
+    [Repeat Customers],
+    [Cohort Customers],
+    0
+)
+
+POWER BI MODELING
+- Import outputs/clean_transactions.csv as Transactions.
+- Import outputs/customer_cohorts.csv as CustomerCohorts.
+- Relate CustomerCohorts[CustomerID] 1-to-many Transactions[CustomerID].
+- Keep CohortMonth and ActivityMonth as Date fields where possible.
+- Create a PeriodNumber column in the cohort activity output if you want a direct matrix.
+
+COHORT MATRIX
+Rows: CustomerCohorts[CohortMonth]
+Columns: cohort_activity[PeriodNumber] or a calculated month-offset field
+Values: [Retention %]
+Apply conditional formatting to create the heatmap.
+
+RECOMMENDED DASHBOARD
+Top row: Cohorts | Active Customers | Repeat Purchase Rate | Total Revenue
+Middle: Cohort retention heatmap
+Bottom: Retention curve line chart + monthly active customers trend
+Slicers: Country, Cohort Month, Activity Month
+
+IMPORTANT
+Recent cohorts naturally have fewer observable months. Do not compare a recent cohort's M2 with an older cohort's M12 as if they had equal follow-up time.

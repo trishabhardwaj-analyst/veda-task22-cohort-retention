@@ -1,0 +1,17 @@
+Metric,Value
+Raw transaction rows,1067371
+Invoices,53628
+Stock codes,5305
+Countries,43
+Date range,2009-12-01 to 2011-12-09
+Missing CustomerID rows,243007
+Month 1 retention,23.3%
+Month 2 retention,23.6%
+Month 3 retention,25.0%
+Month 6 retention,22.2%
+Month 9 retention,19.4%
+Month 12 retention,22.7%
+December 2009 cohort customers,951
+December 2009 cohort Month 1 retention,35.0%
+December 2009 cohort peak retention,49.6% in Nov-2010
+December 2009 cohort two-year retention,40.6%
